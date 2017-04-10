@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration debug="true">
+
+	<DynamicThresholdFilter key="X-OnDemand-LogLevel"
+		onMatch="ACCEPT" onMismatch="NEUTRAL">
+		<KeyValuePair key="TRACE" value="TRACE" />
+		<KeyValuePair key="DEBUG" value="DEBUG" />
+		<KeyValuePair key="INFO" value="INFO" />
+		<KeyValuePair key="WARN" value="WARN" />
+		<KeyValuePair key="ERROR" value="ERROR" />
+		<KeyValuePair key="FATAL" value="FATAL" />
+	</DynamicThresholdFilter>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>[%t] [%d] %-5p [requestID=%X{requestID}] %c %x - %m%n
+				</pattern>
+			</PatternLayout>
+		</Console>
+		<!-- <File name="SpringBoot-File-Appender" fileName="./logs/GE_Service.log"> 
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" 
+			/> </File> -->
+		<RollingFile name="RollingFile" fileName="./logs/geneticestimator-rest.log"
+			filePattern="./logs/geneticestimator-rest-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>[%t] [%d] %-5p [requestID=%X{requestID}] %c %x - %m%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Logger name="org.hibernate.SQL" level="info" />
+		<Logger name="org.hibernate.stat.internal.ConcurrentStatisticsImpl" level="debug" />
+		<Logger name="com.trmsmy.genetic.estimator" level="debug" />
+		
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>
