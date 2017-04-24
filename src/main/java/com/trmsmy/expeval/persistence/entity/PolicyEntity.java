@@ -1,15 +1,15 @@
 package com.trmsmy.expeval.persistence.entity;
 
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +18,8 @@ public class PolicyEntity {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "policy_seq")
+    @SequenceGenerator(name="policy_seq", sequenceName = "POLICY_SEQ", allocationSize = 20)
 	private Integer id;
 
 	@Column(name = "FORMULAE")
@@ -27,16 +28,24 @@ public class PolicyEntity {
 	@Column(name = "COMMENT")
 	String comment;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity=SimpleExpEntity.class )
-    @JoinColumn(name = "POLICY_ID")
-    private Set<SimpleExpEntity> simpleExpList;
+    @OneToMany(mappedBy="policyEntity", cascade = CascadeType.ALL)
+    private List<SimpleExpEntity> simpleExpList;
     
-    @OneToMany(fetch = FetchType.LAZY, targetEntity=ComplexExpEntity.class )
-    @JoinColumn(name = "POLICY_ID")
-    private Set<ComplexExpEntity> complexExpList;
+    @OneToMany(mappedBy="policyEntity", cascade = CascadeType.ALL)
+    private List<ComplexExpGroupEntity> complexExpGroupList;
     
 	public PolicyEntity() {
 	}
+	
+	public PolicyEntity(Integer id, String formulae, String comment) {
+		super();
+		this.id = id;
+		this.formulae = formulae;
+		this.comment = comment;
+	}
+
+
+
 	public PolicyEntity(int id) {
 		this.id = id;
 	}
@@ -69,19 +78,19 @@ public class PolicyEntity {
 		return "PolicyEntity [id=" + id + ", formulae=" + formulae + ", comment=" + comment + "]";
 	}
 
-	public Set<SimpleExpEntity> getSimpleExpList() {
+	public List<SimpleExpEntity> getSimpleExpList() {
 		return simpleExpList;
 	}
 
-	public void setSimpleExpList(Set<SimpleExpEntity> simpleExpList) {
+	public void setSimpleExpList(List<SimpleExpEntity> simpleExpList) {
 		this.simpleExpList = simpleExpList;
 	}
 
-	public Set<ComplexExpEntity> getComplexExpList() {
-		return complexExpList;
+	public List<ComplexExpGroupEntity> getComplexExpGroupList() {
+		return complexExpGroupList;
 	}
 
-	public void setComplexExpList(Set<ComplexExpEntity> complexExpList) {
-		this.complexExpList = complexExpList;
+	public void setComplexExpList(List<ComplexExpGroupEntity> complexExpList) {
+		this.complexExpGroupList = complexExpList;
 	}
 }

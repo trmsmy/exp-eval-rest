@@ -2,40 +2,41 @@ package com.trmsmy.expeval.model;
 
 public class Policy {
 
-    private Integer id;
-    String formulae;
-    String comment;
+	private Integer id;
+	String formulae;
+	String comment;
 
-    public Policy(Integer id2, String formulae2, String comment2) {
-        this.id = id2;
-        this.formulae = formulae2;
-        this.comment = comment2;
-    }
+	public Policy(Integer id2, String formulae2, String comment2) {
+		this.id = id2;
+		this.formulae = formulae2;
+		this.comment = comment2;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Policy() {
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getFormulae() {
-        return formulae;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setFormulae(String formulae) {
-        this.formulae = formulae;
-    }
+	public String getFormulae() {
+		return formulae;
+	}
 
-    public String getComment() {
-        return comment;
-    }
+	public void setFormulae(String formulae) {
+		this.formulae = formulae;
+	}
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+	public String getComment() {
+		return comment;
+	}
 
-
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
 }

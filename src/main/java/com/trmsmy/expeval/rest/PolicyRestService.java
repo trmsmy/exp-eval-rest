@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trmsmy.expeval.biz.MatchPolicyServiceImpl;
+import com.trmsmy.expeval.biz.PolicyMaintanenceService;
 import com.trmsmy.expeval.model.MatchPolicyRequest;
 import com.trmsmy.expeval.model.MatchPolicyResponse;
 import com.trmsmy.expeval.model.Policy;
@@ -23,6 +25,9 @@ public class PolicyRestService {
 
     @Autowired
 	private PolicyRepository policyRepo;
+    
+    @Autowired 
+    private PolicyMaintanenceService maintanenceSvc;
     
     @Autowired
     private MatchPolicyServiceImpl matchService;
@@ -45,5 +50,10 @@ public class PolicyRestService {
         return new ResponseEntity<MatchPolicyResponse>(p, HttpStatus.OK);
     }
 
-	
+	@RequestMapping(value = "/policy/add", method = RequestMethod.POST)
+    public ResponseEntity<Policy> addPolicy(@RequestBody  Policy p) {
+        Policy policyEntity = maintanenceSvc.addPolicy(p);
+        return new ResponseEntity<Policy>(policyEntity , HttpStatus.OK);
+    }
+
 }

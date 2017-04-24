@@ -1,12 +1,11 @@
 package com.trmsmy.expeval.persistence;
 
-import java.util.List;
-
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.trmsmy.expeval.persistence.entity.PolicyEntity;
 
-public interface PolicyRepository extends Repository<PolicyEntity, Integer>{
-	public List<PolicyEntity> findAll();
+public interface PolicyRepository extends JpaRepository<PolicyEntity, Integer>{
+	//public List<PolicyEntity> findAll();
 	public PolicyEntity findById(Integer id);
+	//public PolicyEntity persist(PolicyEntity pe);
 }

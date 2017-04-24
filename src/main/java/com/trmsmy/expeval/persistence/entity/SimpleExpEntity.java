@@ -2,12 +2,12 @@ package com.trmsmy.expeval.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,13 +16,14 @@ public class SimpleExpEntity {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "simple_exp_seq")
+    @SequenceGenerator(name="simple_exp_seq", sequenceName = "SIMPLE_EXP_SEQ", allocationSize = 20)
 	private Integer id;
 
 /*	@Column(name = "POLICY_ID")
 	private Integer policyId;*/
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity=PolicyEntity.class)
+	@ManyToOne
 	@JoinColumn(name = "POLICY_ID")
 	private PolicyEntity policyEntity;
 

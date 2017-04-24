@@ -9,4 +9,13 @@ public class ModelMapper {
         return new Policy(pe.getId(), pe.getFormulae(), pe.getComment());
     }
 
+    public static PolicyEntity modelToEntity (Policy p) {
+        if(p == null) return null;
+        PolicyEntity policyEntity = new PolicyEntity(p.getId(), p.getFormulae(), p.getComment());
+        policyEntity.setSimpleExpList(null);
+        policyEntity.setComplexExpList(null);
+		return policyEntity;
+    }
+
+    
 }
